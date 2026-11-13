@@ -1,6 +1,6 @@
 # htmlfence
 
-A conservative HTML cleaner for snippets that will be stored and later shown in an admin page. `tokenize` already turns a file into a token stream. `sanitize` is still a stub in this snapshot.
+A conservative HTML cleaner for snippets that will be stored and later shown in an admin page. `tokenize` turns a file into a token stream; `sanitize` filters that stream under a policy and serializes a stable output document.
 
 The important property is not just "drop script tags once". After the cleaner writes HTML, that output has to be parsed again (with this same tokenizer) without growing back a forbidden tag, an event handler, or a `javascript:` URL. Several samples under `fixtures/mxss/` are cases where a careless strip-and-join will resurrect a script.
 
@@ -35,5 +35,5 @@ Parameter names are fixed in `htmlfence/__main__.py`. Keep them. Reuse the exist
 
 - `htmlfence/tokenize.py` — tokenizer (data, tags, comments, RCDATA, RAWTEXT)
 - `htmlfence/policy.py` — policy loader
-- `htmlfence/engine.py` — `sanitize_tokens` (not implemented yet)
+- `htmlfence/engine.py` — `sanitize_tokens` (drop rules, URL checks, serialization)
 - `fixtures/mxss/` — mutation-XSS shaped inputs
